@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import PageCurl from './PageCurl';
+import { useState } from 'react';
 
 interface Props {
   pageIndex: number;
@@ -7,6 +9,9 @@ interface Props {
 }
 
 const BookSpread = ({ pageIndex, next, prev }: Props) => {
+
+    const [isTurning, setIsTurning] = useState(false);
+
   return (
     <div className="absolute inset-0 flex">
       {/* Página esquerda */}
@@ -32,9 +37,11 @@ const BookSpread = ({ pageIndex, next, prev }: Props) => {
           This is part of my story as a Front-end Developer.
         </p>
 
-        <button onClick={next} className="mt-6 text-xs underline">
-          Next →
+        <button onClick={() => { setIsTurning(true); setTimeout(() => { setIsTurning(false); next(); }, 600); }}
+            className="mt-6 text-xs underline">
+                 Next →
         </button>
+        <PageCurl isTurning={isTurning} />
       </motion.div>
     </div>
   );
